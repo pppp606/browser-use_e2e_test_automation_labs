@@ -1,7 +1,8 @@
-browser-useとLLMを利用したe2eテストの自動化を目的としたサンプルコードです。
-テストは、Sauce Demo Webサイト (https://www.saucedemo.com) で行っています。
+# Sample Code for E2E Test Automation with `browser-use` and LLM
 
-## Install
+This sample code demonstrates automating end-to-end (E2E) tests using `browser-use` and a Large Language Model (LLM). The tests are conducted on the [Sauce Demo Website](https://www.saucedemo.com), and the test code is designed to run with `jest` and `playwright`.
+
+## Installation
 
 ```bash
 python -m venv .venv
@@ -13,11 +14,13 @@ npm install
 npx playwright install
 ```
 
-* browser-useを実行するためにpythonは3.11以上が必要です
+> **Note**: Python 3.11 or higher is required to run `browser-use`.
 
-## 設定
-.env.sampleを参考に.envファイルを作成してください
-OPENAI_API_KEYが必要です。
+## Configuration
+
+Create a `.env` file based on `.env.sample`. The `OPENAI_API_KEY` is mandatory.
+
+Example `.env` file:
 
 ```
 OPENAI_API_KEY=
@@ -27,16 +30,19 @@ PASSWORD=secret_sauce
 SCENARIO_LANGUAGE=English
 ```
 
-## 使い方
-### Step1 シナリオを作成
+## Usage
+
+### Step 1: Generate a Scenario
+
+Run the following command to generate a test scenario:
 
 ```bash
 python index.py scenario
 ```
 
-`/scenario` に出力されるシナリオを確認しレビューし、必要であれば修正をしてください。
+Review the scenario generated in the `/scenario` directory. Edit the scenario if necessary to ensure it matches your requirements.
 
-#### 出力例
+#### Example Output
 
 ```
 path: /inventory.html,
@@ -59,16 +65,26 @@ actions:
     expect: Redirected to the cart page with selected items listed.
 ```
 
-### Step2 テストコードを生成
+### Step 2: Generate Test Code
+
+Run the following command to generate test code:
 
 ```bash
 python index.py code
 ```
 
-/tests にテストコードが生成されます。
+The test code will be generated in the `/tests` directory.
 
-### Step3 テストの実行
+### Step 3: Run the Tests
+
+Execute the tests using the following command:
 
 ```bash
 npx playwright test
 ```
+
+## ⚠️⚠️ Notes
+
+- The Sauce Demo Website is a demo site.
+- When testing real products, handle account credentials carefully.
+- Use secure environments for running the LLM locally or services like Azure OpenAI Service to ensure data is not reused improperly.
