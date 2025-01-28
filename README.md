@@ -83,7 +83,7 @@ Execute the tests using the following command:
 npx playwright test
 ```
 
-## ⚠️　Notes　⚠️
+## ⚠️ Notes ⚠️
 
 - The Sauce Demo Website is a demo site.
 - When testing real products, handle account credentials carefully.
