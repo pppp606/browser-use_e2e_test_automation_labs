@@ -141,7 +141,7 @@ Do not include any markdown code formatting. Output only the code.
     result = await Agent(
       task=task,
       llm=ChatOpenAI(model="gpt-4o", temperature=0.8),
-    ).run()
+    ).run(max_steps=50)
 
     result_content = extract_content(result)
     print(result_content)
