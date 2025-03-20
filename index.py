@@ -16,6 +16,7 @@ url = os.getenv("URL")
 user_id = os.getenv("USER_ID")
 password = os.getenv("PASSWORD")
 scenario_language = os.getenv("SCENARIO_LANGUAGE")
+sensitive_data = {'x_user': user_id, 'x_password': password}
 
 async def create_scenario():
   site_structure_task = f"""
@@ -36,13 +37,14 @@ Analyze the website starting from {url}. Identify and output:
 ]
 
 ## Login Information
-- id: {user_id}
-- password: {password}
+- id: x_user
+- password: x_password
 """
 
   site_structure_result = await Agent(
     task=site_structure_task,
     llm=ChatOpenAI(model="gpt-4o", temperature=0.8),
+    sensitive_data=sensitive_data,
   ).run()
 
   site_structure_content = extract_content(site_structure_result)
@@ -88,13 +90,14 @@ The output must be written in {scenario_language}.
 {url}
 
 ## Login Information
-- id: {user_id}
-- password: {password}
+- id: x_user
+- password: x_password
 """
 
     result = await Agent(
         task=scenario_task,
         llm=ChatOpenAI(model="gpt-4o", temperature=0.8, max_tokens=5000),
+        sensitive_data=sensitive_data,
     ).run()
 
     scenario_content = extract_content(result)
@@ -127,8 +130,8 @@ Do not include any markdown code formatting. Output only the code.
 {url}
 
 ## Login Information
-- id: {user_id}
-- password: {password}
+- id: x_user
+- password: x_password
 
 ## Scenario
 {scenario}
@@ -141,6 +144,7 @@ Do not include any markdown code formatting. Output only the code.
     result = await Agent(
       task=task,
       llm=ChatOpenAI(model="gpt-4o", temperature=0.8),
+      sensitive_data=sensitive_data,
     ).run(max_steps=50)
 
     result_content = extract_content(result)
